@@ -25,3 +25,6 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+munchify/windows/flutter/generated_plugin_registrant.cc
+munchify/macos/Flutter/GeneratedPluginRegistrant.swift
+munchify/macos/Flutter/GeneratedPluginRegistrant.swift
