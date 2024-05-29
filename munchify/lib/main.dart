@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:munchify/firebase_options.dart';
-import 'package:munchify/login_page.dart';  // Importiere die LoginPage
+import 'package:munchify/login_page.dart';
+import 'package:munchify/start_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,12 +21,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LoginPage(),  // Setze die LoginPage als Startseite
+      home: StartPage(),  // Setze die LoginPage als Startseite
     );
   }
 }
