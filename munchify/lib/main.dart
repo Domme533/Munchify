@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:munchify/active_tour_page.dart';
 import 'package:munchify/firebase_options.dart';
+import 'package:munchify/group_detail_page.dart';
+import 'package:munchify/group_page_default.dart';
 import 'package:munchify/login_page.dart';
+import 'package:munchify/payment_page_order.dart';
+import 'package:munchify/payment_page_runner.dart';
 import 'package:munchify/start_page.dart';
 
 void main() async {
@@ -26,7 +31,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: StartPage(),  // Setze die LoginPage als Startseite
+      home: PaymentPageOrder(),  // Setze die LoginPage als Startseite
     );
   }
 }
