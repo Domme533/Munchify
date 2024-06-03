@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+  import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:munchify/create_group_page.dart';
 
 void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: StartPage(),
-    );
-  }
+  runApp(StartPage());
 }
 
 class StartPage extends StatelessWidget {
@@ -30,7 +24,7 @@ class StartPage extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    // Add your onPressed code here!
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CreateGroupPage()));
                   },
                   child: Text('Gruppe erstellen'),
                 ),
@@ -76,4 +70,8 @@ class StartPage extends StatelessWidget {
       ),
     );
   }
+}
+
+void createGroup(){
+   
 }

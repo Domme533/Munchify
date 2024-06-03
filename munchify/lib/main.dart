@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: PaymentPageOrder(),  // Setze die LoginPage als Startseite
+      home: StartPage(),  // Setze die LoginPage als Startseite
     );
   }
 }
