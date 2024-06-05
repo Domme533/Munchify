@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
   import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:munchify/create_group_page.dart';
+import 'package:munchify/group_detail_page.dart';
 
 void main() {
   runApp(StartPage());
@@ -16,7 +17,8 @@ class StartPage extends StatelessWidget {
           children: <Widget>[
             Image.asset('assets/images/Lunchify_Logo.png', width: 200, height: 200),
             SizedBox(height: 20),
-
+            // Search Bar
+            
             // Gruppe Erstellen Button
             Align(
               alignment: Alignment.centerRight,
@@ -28,6 +30,18 @@ class StartPage extends StatelessWidget {
                   },
                   child: Text('Gruppe erstellen'),
                 ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search groups...',
+                ),
+                onChanged: (value) {
+                  // Implement your search logic here
+                },
               ),
             ),
             SizedBox(height: 20),
@@ -57,6 +71,9 @@ class StartPage extends StatelessWidget {
                         child: ListTile(
                           title: Text('Group ${index + 1}'),
                           subtitle: Text('Details about group ${index + 1}'),
+                          onTap: () {
+                            selectGroup();
+                          },
                         ),
                       );
                     },
@@ -69,6 +86,12 @@ class StartPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+void selectGroup(){
+  void selectGroup(BuildContext context){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => GroupDetailPage()));
   }
 }
 

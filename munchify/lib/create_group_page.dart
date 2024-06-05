@@ -50,7 +50,13 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Neue Gruppe erstellen'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text('Create Group'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -106,6 +112,16 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                 ],
               ),
             ),
+            SizedBox(height: 20),
+            
+            // Create Group button, visible only if 2 or more users are selected
+            if (selectedUsers.length >= 2)
+              ElevatedButton(
+                onPressed: () {
+                  // Your create group logic here
+                },
+                child: Text('Create Group'),
+              ),
           ],
         ),
       ),
