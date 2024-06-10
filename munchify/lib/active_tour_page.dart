@@ -1,6 +1,10 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class ShoppingListPage extends StatefulWidget {
+  const ShoppingListPage({super.key});
+
   @override
   _ShoppingListPageState createState() => _ShoppingListPageState();
 }
@@ -15,6 +19,8 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
 }
 
 class ActiveTourPage extends StatelessWidget {
+  const ActiveTourPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

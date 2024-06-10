@@ -1,23 +1,29 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:munchify/screens/home/home.dart';
 
 class GroupPageDefault extends StatelessWidget {
-  const GroupPageDefault({super.key}) ;
-  @override
-   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: GroupPage(),
-    );
-  }
-}
 
-class GroupPage extends StatelessWidget {
+  final String groupid;
+  GroupPageDefault({required this.groupid});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+            },
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            // Group Name Placeholder
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(

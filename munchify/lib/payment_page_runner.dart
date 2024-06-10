@@ -1,10 +1,14 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(PaymentPageRunner());
+  runApp(const PaymentPageRunner());
 }
 
 class PaymentPageRunner extends StatelessWidget {
+  const PaymentPageRunner({super.key});
+
   @override
  Widget build(BuildContext context) {
     return MaterialApp(
