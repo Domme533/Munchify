@@ -3,7 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:munchify/screens/authenticate/sign_in.dart';
-import 'package:munchify/screens/create_group/create_group_page.dart';
+import 'package:munchify/screens/group/create_group_page.dart';
+import 'package:munchify/screens/group/group_page_default.dart';
 import 'package:munchify/services/auth.dart';
 import 'package:munchify/services/database.dart';
 
@@ -44,7 +45,7 @@ class Home extends StatelessWidget {
             Image.asset('assets/images/Lunchify_Logo.png', width: 200, height: 200),
             SizedBox(height: 20),
 
-            // Gruppe Erstellen Button
+            // Buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
@@ -52,7 +53,7 @@ class Home extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => CreateGroupPage()));
                   },
-                  child: Text('Gruppe erstellen'),
+                  child: Text('Create Group'),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -86,12 +87,6 @@ class Home extends StatelessWidget {
                   },
                   child: Text('Join Group'),
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    DatabaseService(uid: uid).getGroups();
-                  },
-                  child: Text('Test'),
-                ),
               ],
             ),
 
@@ -102,7 +97,7 @@ class Home extends StatelessWidget {
                   hintText: 'Search groups...',
                 ),
                 onChanged: (value) {
-                  // Implement your search logic here
+                  // Implement search logic 
                 },
               ),
             ),
@@ -155,9 +150,8 @@ class Home extends StatelessWidget {
                                       backgroundImage: NetworkImage(groupData?['groupImage'] ?? 'https://via.placeholder.com/150'),
                                     ),
                                     title: Text(groupData?['groupName'] ?? 'Unknown Group'),
-                                    subtitle: Text('Last Message'),
                                     onTap: () {
-                                      // Implement your group selection logic here
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => GroupPageDefault(groupid: uid)));
                                     },
                                   );
                                 }

@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:munchify/services/auth.dart';
+import 'package:munchify/services/database.dart';
 
 class ShoppingListPage extends StatefulWidget {
   const ShoppingListPage({super.key});
@@ -19,7 +22,8 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
 }
 
 class ActiveTourPage extends StatelessWidget {
-  const ActiveTourPage({super.key});
+final AuthService _auth = AuthService();
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +59,7 @@ class ActiveTourPage extends StatelessWidget {
 
             // Einkaufsliste Section
             Text(
-              'Einkaufsliste:',
+              'Shopping List:',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -99,9 +103,9 @@ class ActiveTourPage extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Add your onPressed code here!
+                  //DatabaseService(uid: _auth.getCurrentUser()).endTour();
                 },
-                child: Text('Tour beenden'),
+                child: Text('End Tour'),
               ),
             ),
           ],

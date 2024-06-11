@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:munchify/screens/create_group/group_page_default.dart';
+import 'package:munchify/screens/group/group_page_default.dart';
 import 'package:munchify/services/auth.dart';
 import 'package:munchify/services/database.dart';
 import 'package:munchify/shared/loading.dart';
@@ -25,9 +25,6 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
   //   }
   // }
 
-  void _addUser(){
-    
-  }
 
   @override
   Widget build(BuildContext context) {

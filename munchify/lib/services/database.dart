@@ -2,7 +2,9 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:munchify/models/group.dart';
+import 'package:munchify/screens/tour/tour_config.dart';
 
 class DatabaseService {
   final String uid;
@@ -121,6 +123,7 @@ Future<List<String>> getGroups() async {
 
   Future<void> joinGroup(String groupid) async {
     final DocumentSnapshot<Map<String, dynamic>> groupDoc = await groupCollection.doc(groupid).get();
+
     // Adding uid to groupDocument
     List<String> groupMembers = List<String>.from(groupDoc.get('members'));
     groupMembers.add(uid);
@@ -149,6 +152,7 @@ Future<List<String>> getGroups() async {
     return null;
   }
 
+
   Future<void> uploadGroupImage(String groupid) async {
     if (image != null) {
       final path = 'groupPictures/$groupid/${image!.name}';
@@ -165,4 +169,43 @@ Future<List<String>> getGroups() async {
       imageUrl = urlDownload;
     }
   }
+
+
+  Future<void> startTour(String groupid) async {
+    await groupCollection.doc(groupid).set({'active': true});
+
+  }
+
+  Future<void> endTour(String groupid, List<String> shoppingList, String runner, List<String> orderer, String destination) async {
+    await groupCollection.doc(groupid).update({'active': false});
+    // Add the recent tour details to the group's recentTours list
+        final CollectionReference tourCollection = groupCollection.doc(groupid).collection('Tours');
+    final String tourid = 'Tour' + (await tourCollection.get()).docs.length.toString();
+    
+    await tourCollection.doc(tourid).set({
+      'shoppingList': shoppingList,
+      'runner': runner,
+      'orderer': orderer,
+      'destination': destination,
+      'createdAt': DateTime.now(),  // Optional: to keep track of when the tour was created
+    });
+  }
+
+
+  Future<List<Map<String, dynamic>>> getRecentTours(String groupid) async {
+    try {
+      final groupDoc = await groupCollection.doc(groupid).get();
+      List<Map<String, dynamic>> recentTours = [];
+      if (groupDoc.exists && groupDoc.data() != null) {
+        final tours = List<Map<String, dynamic>>.from(groupDoc.data()!['recentTours'] ?? []);
+        recentTours = tours;
+      }
+      return recentTours;
+    } catch (error) {
+      print("Failed to get recent tours: $error");
+      return [];
+    }
+  }
+
+
 }

@@ -14,8 +14,7 @@ class _GroupListState extends State<GroupList> {
   @override
   Widget build(BuildContext context) {
     final groups = Provider.of<List<Group>>(context);
-    print('groups');
-    print(groups);
+
 
     return ListView.builder(
       shrinkWrap: true,

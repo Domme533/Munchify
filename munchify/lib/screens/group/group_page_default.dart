@@ -2,11 +2,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:munchify/screens/home/home.dart';
+import 'package:munchify/screens/tour/tour_config.dart';
+import 'package:munchify/services/auth.dart';
+import 'package:munchify/services/database.dart';
 
-class GroupPageDefault extends StatelessWidget {
-
+class GroupPageDefault extends StatefulWidget {
   final String groupid;
   GroupPageDefault({required this.groupid});
+
+  @override
+  _GroupPageDefaultState createState() => _GroupPageDefaultState(groupid: groupid);
+}
+
+class _GroupPageDefaultState extends State<GroupPageDefault> {
+  final String groupid;
+  final AuthService _auth = AuthService();
+  late DatabaseService _dbService;
+  List<Map<String, dynamic>> _recentTours = [];
+
+  _GroupPageDefaultState({required this.groupid});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +53,7 @@ class GroupPageDefault extends StatelessWidget {
                   ),
                   SizedBox(width: 10),
                   Text(
-                    'Bsp. Gruppe',
+                    DatabaseService(uid: _auth.getCurrentUser()).groupCollection.doc(groupid).get().toString(),
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -50,14 +64,14 @@ class GroupPageDefault extends StatelessWidget {
             ),
             SizedBox(height: 20),
 
-            // Letzte Touren Section
+            // Recent Tours Section
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Letzte Touren',
+                    'Recent Tours',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -70,12 +84,13 @@ class GroupPageDefault extends StatelessWidget {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: 2, // Replace with the number of items you have
+                    itemCount: _recentTours.length,
                     itemBuilder: (context, index) {
+                      final tour = _recentTours[index];
                       return Card(
                         child: ListTile(
-                          title: Text('Tour ${index + 1}'),
-                          subtitle: Text('Details about tour ${index + 1}'),
+                          title: Text(tour['title'] ?? 'Tour ${index + 1}'),
+                          subtitle: Text(tour['details'] ?? 'Details about tour ${index + 1}'),
                         ),
                       );
                     },
@@ -85,12 +100,14 @@ class GroupPageDefault extends StatelessWidget {
             ),
             SizedBox(height: 20),
 
-            // Tour Starten Button
+            // Start Tour
             ElevatedButton(
               onPressed: () {
-                // Add your onPressed code here!
+                _dbService.startTour(groupid).then((_) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => TourConfig(groupid: groupid)));
+                });
               },
-              child: Text('Tour Starten'),
+              child: Text('Start Tour'),
             ),
             SizedBox(height: 20),
           ],
