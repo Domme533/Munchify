@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:munchify/models/user.dart';
 import 'package:munchify/services/database.dart';
-import 'package:easy_refresh/easy_refresh.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -36,12 +35,10 @@ class AuthService {
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _auth
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .catchError((error) => print(error));
+          .createUserWithEmailAndPassword(email: email, password: password);
       User user = result.user!;
 
       // create a new document for the user with the uid
-
       await DatabaseService(uid: user.uid).createUser();
       return _userFromFirebaseUser(user);
     } catch (e) {
@@ -61,6 +58,6 @@ class AuthService {
   }
 
   String getCurrentUser() {
-    return _auth.currentUser!.uid;
+    return _auth.currentUser?.uid ?? '';
   }
 }
