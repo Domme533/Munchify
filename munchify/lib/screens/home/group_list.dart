@@ -1,28 +1,22 @@
-import 'package:flutter/material.dart';
 import 'package:munchify/models/group.dart';
+import 'package:munchify/services/auth.dart';
+import 'package:munchify/services/database.dart';
 import 'package:provider/provider.dart';
-import 'package:munchify/screens/home/group_tile.dart';
+import 'package:flutter/material.dart';
 
-class GroupList extends StatefulWidget {
-  const GroupList({super.key});
+class GroupList extends StatelessWidget {
 
-  @override
-  State<GroupList> createState() => _GroupListState();
-}
+  AuthService _auth = AuthService();
 
-class _GroupListState extends State<GroupList> {
   @override
   Widget build(BuildContext context) {
-    final groups = Provider.of<List<Group>>(context);
-    print('groups');
-    print(groups);
-
     return ListView.builder(
-      shrinkWrap: true,
-      itemCount: groups.length,
-      itemBuilder: (context, index) {
-        return GroupTile(group: groups[index]);
-      },
-    );
+        itemCount: 1,
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: Image.network('https://firebasestorage.googleapis.com/v0/b/lunchify-1f7b6.appspot.com/o/groupPictures%2FLunchify_Logo.png?alt=media&token=3b3b3b3b-3b3b-3b3b-3b3b-3b3b3b3b3b3b'),
+            title: Text('Lunchify'),
+          );
+        });
   }
 }
